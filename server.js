@@ -1,17 +1,14 @@
-// Required modules to start
 const express = require("express");
-const path = require("path");
+const path = require("path")
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Processing of Json Files
-app.use(express.urlencoded({ extended: true }));
+// Middleware that functions with Express and Node 
+app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "/public")));
+app.use(express.static("public"));
+//Routes below passing in express to routes files
+require("./routes/htmlroutes.js")(app);
+require("./routes/apiroutes.js")(app);
 
-require("./routes/apiroutes")(app);
-require("./routes/htmlroutes")(app);
-
-app.listen(PORT, function() {
-    console.log("App listening on PORT " + PORT);
-})
+app.listen(PORT, () => console.log(`Server is listening on: http://localhost:${PORT}`));
